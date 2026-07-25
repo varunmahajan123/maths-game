@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+@import 'katex/dist/katex.min.css';
+
+/* Design system: dark-first "examiner's desk at night".
+   Near-black navy ground, elevated cards, red = brand/judgment,
+   gold = score/action, green = correct only. */
+@theme {
+  --color-bg: #0d1117;
+  --color-card: #161b22;
+  --color-card2: #1c2129; /* nested / hover surface */
+  --color-line: #262c36; /* card borders */
+  --color-brand: #e5484d; /* red: logo, wrong, timer-low, danger */
+  --color-gold: #ffc53d; /* score, primary action, partial */
+  --color-good: #3fb950; /* correct only */
+  --color-fg: #e6edf3;
+  --color-muted: #8b949e;
+  --font-hand: 'Caveat', cursive;
+  --font-body: 'Manrope', system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  overscroll-behavior-y: none;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-fg);
+  background-color: #05070a; /* desk around the phone column on desktop */
+}
+
+/* Reusable elevated card */
+.card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+}
+
+/* KaTeX inside a step: never break the page — wrap the row, scroll if needed */
+.step-math {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.step-math::-webkit-scrollbar {
+  display: none;
+}
+.step-math .katex {
+  font-size: 1.15rem;
+  color: var(--color-fg);
+}
+
+/* Wrong-tap: red border glow on the step card */
+.step-wrong {
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 1px var(--color-brand), 0 0 18px rgba(229, 72, 77, 0.35);
+}
+
+button,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
